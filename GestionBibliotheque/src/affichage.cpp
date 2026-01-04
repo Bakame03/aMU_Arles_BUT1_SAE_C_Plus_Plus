@@ -15,7 +15,10 @@ void afficherFicheLivre(const Livre& l) {
     std::cout << "\nLANGUE : " << l.langue << "\n";
     std::cout << "GENRE  : " << l.genre << "\n";
     std::cout << "DATE   : " << l.dateParution.jour << "/" << l.dateParution.mois << "/" << l.dateParution.annee << "\n";
-    std::cout << "RESUME : " << l.description << "\n";
+    std::cout << "RESUME : \n";
+    for (const std::string& ligne : l.description) {
+        std::cout << "  " << ligne << "\n"; 
+    }
     std::cout << "------------------------------------------\n";
 }
 

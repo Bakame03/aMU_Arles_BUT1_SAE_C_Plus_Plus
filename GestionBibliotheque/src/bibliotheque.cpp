@@ -49,11 +49,19 @@ void sauvegarderDonnees(const Bibliotheque& b) {
 
     for (const Livre& l : b.listeDeLivres) {
         f << l.isbn << ";" << l.titre << ";" << l.langue << ";";
+        
+        // Auteurs (séparés par ,)
         for (size_t i = 0; i < l.auteurs.size(); i++) {
             f << l.auteurs[i] << (i == l.auteurs.size() - 1 ? "" : ",");
         }
         f << ";" << l.dateParution.annee << "-" << l.dateParution.mois << "-" << l.dateParution.jour << ";";
-        f << l.description << ";" << l.genre << "\n";
+        
+        // DESCRIPTION (séparée par |)
+        for (size_t i = 0; i < l.description.size(); i++) {
+            f << l.description[i] << (i == l.description.size() - 1 ? "" : "|");
+        }
+        
+        f << ";" << l.genre << "\n";
     }
     f.close();
 }
@@ -89,7 +97,7 @@ bool chargerDonnees(Bibliotheque& b) {
         l.dateParution.mois = std::stoi(d[1]);
         l.dateParution.jour = std::stoi(d[2]);
         
-        l.description = cols[5];
+        l.description = split(cols[5], '|');
         l.genre = cols[6];
         b.listeDeLivres.push_back(l);
     }

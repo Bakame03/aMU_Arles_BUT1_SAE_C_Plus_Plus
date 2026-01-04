@@ -36,10 +36,9 @@ void ajouterLivreManuel(Bibliotheque& b) {
 
     std::cout << "Description (ligne vide pour finir) :\n";
     std::string ligneDesc;
-    nouveau.description = "";
     std::cin >> std::ws; 
     while (std::getline(std::cin, ligneDesc) && !ligneDesc.empty()) {
-        nouveau.description += ligneDesc + "\n";
+        nouveau.description.push_back(ligneDesc);
     }
 
     std::cout << "Genre : ";
@@ -56,7 +55,7 @@ int importerCSV(Bibliotheque& b, std::string chemin) {
         return 0;
     }
 
-    std::string ligne;
+    std::string ligne, blocLigne;
     int compteur = 0;
 
     // pour sauter la premiere ligne qui a des noms de colonnes
@@ -64,22 +63,35 @@ int importerCSV(Bibliotheque& b, std::string chemin) {
 
     // on lit le fichier ligne par ligne
     while (std::getline(fichier, ligne)) {
+        // Si la ligne a un nombre impair de guillemets, c'est qu'un champ (résumé) est ouvert
+        // On continue de lire jusqu'à trouver le guillemet de fermeture
+        int guillemets = 0;
+        for(char c : ligne) 
+            if(c == '"') 
+                guillemets++;
+        
+        while (guillemets % 2 != 0 && std::getline(fichier, blocLigne)) {
+            ligne += " " + blocLigne; // On recolle les morceaux
+            for(char c : blocLigne) 
+                if(c == '"') 
+                    guillemets++;
+        }
+
         std::vector<std::string> cols = split(ligne, ';');
+        if (cols.size() < 7) continue;
 
         Livre nouveau;
         nouveau.isbn = cols[0];
         nouveau.titre = cols[1];
-        nouveau.langue = cols[2];
-
         nouveau.auteurs = split(cols[3], ',');
-
-        std::vector<std::string> dateMots = split(cols[4], '-');
-        nouveau.dateParution.annee = std::stoi(dateMots[0]);
-        nouveau.dateParution.mois  = std::stoi(dateMots[1]);
-        nouveau.dateParution.jour  = std::stoi(dateMots[2]);
         
-        nouveau.description = cols[5];
-        nouveau.genre = cols[6];
+        // Pour le résumé, on enlève les guillemets s'ils existent
+        std::string res = cols[5];
+        if (!res.empty() && res[0] == '"') res.erase(0, 1);
+        if (!res.empty() && res[res.length()-1] == '"') res.erase(res.length()-1, 1);
+        
+        // Et on utilise SPLIT pour transformer le texte en liste de lignes (par exemple sur les points)
+        nouveau.description = split(res, '\n'); 
 
         b.listeDeLivres.push_back(nouveau);
         compteur++;

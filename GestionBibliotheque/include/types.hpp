@@ -18,7 +18,7 @@ struct Livre {
     std::vector<std::string> auteurs;   
     Date dateParution;         
     std::string genre;         
-    std::string description;   
+    std::vector<std::string> description;  
 };
 
 // Structure des paramètres de la bibliothèque

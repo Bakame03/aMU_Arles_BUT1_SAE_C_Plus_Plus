@@ -27,4 +27,4 @@ build/%.o: src/%.cpp include/%.hpp
 # pour supprimer les fichiers objets et le fichier exécutable(avec la commande 'make clean')
 # le -f c'est juste pour forcer la suppression des fichiers(par exemple ca ignore les messages d'erreur si le file n'existe pas)
 clean:
-	rm -f build/*.o $(EXEC)
+	rm -f build/*.o $(EXEC) data/db.txt export/index.html

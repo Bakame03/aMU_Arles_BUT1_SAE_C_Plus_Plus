@@ -65,3 +65,4 @@ bool contientSousChaine(std::string texte, std::string mot) {
     }
     return false;
 }
+
