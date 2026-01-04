@@ -6,5 +6,7 @@
 void initialiserParDefaut(Bibliotheque& b);
 void afficherLogo(const Bibliotheque& b);
 void configurerPremierLancement(Bibliotheque& b);
+void sauvegarderDonnees(const Bibliotheque& b);
+bool chargerDonnees(Bibliotheque& b);
 
 #endif
