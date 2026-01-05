@@ -136,3 +136,8 @@ int importerCSV(Bibliotheque& b, std::string chemin) {
     fichier.close();
     return compteur;
 }
+
+void supprimerToutesLesReferences(Bibliotheque& b) {
+    b.listeDeLivres.clear();
+    std::cout << "[Systeme] Toutes les references ont ete supprimees.\n";
+}

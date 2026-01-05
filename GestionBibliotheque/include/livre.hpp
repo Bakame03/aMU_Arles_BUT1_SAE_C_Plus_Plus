@@ -5,5 +5,6 @@
 
 void ajouterLivreManuel(Bibliotheque& b);
 int importerCSV(Bibliotheque& b, std::string chemin);
+void supprimerToutesLesReferences(Bibliotheque& b);
 
 #endif
