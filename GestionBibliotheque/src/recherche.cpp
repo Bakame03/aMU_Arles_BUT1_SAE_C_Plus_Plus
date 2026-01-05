@@ -12,6 +12,7 @@ void chercherParIsbn(const Bibliotheque& b) {
     bool trouve = false;
     for (const Livre& l : b.listeDeLivres) {
         if (l.isbn == saisie) {
+            system("clear || cls");
             afficherFicheLivre(l);
             trouve = true;
             break; // on arrete la boucle, pas besoin de continuer si on a trouve le livre
@@ -19,6 +20,7 @@ void chercherParIsbn(const Bibliotheque& b) {
     }
 
     if (!trouve) {
+        system("clear || cls");
         std::cout << "Aucun livre trouve avec l'ISBN : " << saisie << std::endl;
     }
 }

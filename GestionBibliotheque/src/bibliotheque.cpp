@@ -22,18 +22,27 @@ void configurerPremierLancement(Bibliotheque& b) {
     std::cout << "[PREMIER LANCEMENT] Configuration de la bibliotheque" << std::endl;
     std::cout << "----------------------------------------------------" << std::endl;
     
-    std::cout << "Entrez le titre de votre bibliotheque : ";
-    std::getline(std::cin, b.titre);
+    do{
+        std::cout << "Entrez le titre de votre bibliotheque : ";
+        std::getline(std::cin, b.titre);
+        if (b.titre.empty()) 
+            std::cout << "Le titre ne peut pas etre vide. Veuillez reessayer." << std::endl;
+    } while (b.titre.empty());
 
-    std::cout << "Entrez une description (laissez une ligne vide pour terminer) :" << std::endl;
-    std::string ligne;
-    std::string description = "";
-    
-    while (std::getline(std::cin, ligne) && !ligne.empty()) {
-        description += ligne + "\n";
-    }
-    b.description = description;
+    do{
+        std::cout << "\nEntrez une description (laissez une ligne vide pour terminer) :" << std::endl;
+        std::string ligne;
+        std::string description = "";
+        
+        while (std::getline(std::cin, ligne) && !ligne.empty()) {
+            description += ligne + "\n";
+        }
+        b.description = description;
+        if(b.description.empty()) 
+            std::cout << "La description ne peut pas etre vide. Veuillez reessayer." << std::endl;
+    }while(b.description.empty());
 
+    system("clear || cls");
     std::cout << std::endl << "Bibliotheque creee avec succes " << std::endl;
 }
 

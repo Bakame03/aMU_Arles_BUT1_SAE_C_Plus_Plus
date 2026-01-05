@@ -50,18 +50,30 @@ void afficherListePagination(const Bibliotheque& b) {
         char choix;
         std::cin >> choix;
 
-        if ((choix == 'N' || choix == 'n') && fin < total) 
+        if ((choix == 'N' || choix == 'n') && fin < total) {
             pageActuelle++;
-        else if ((choix == 'P' || choix == 'p') && pageActuelle > 0) 
+            system("clear || cls");
+        }
+        else if ((choix == 'P' || choix == 'p') && pageActuelle > 0) {
             pageActuelle--;
-        else if (choix == 'Q' || choix == 'q') 
+            system("clear || cls");
+        }
+        else if (choix == 'Q' || choix == 'q') {
             continuer = false;
+            system("clear || cls");
+        }
         else if (choix == 'V' || choix == 'v') {
             int index;
             std::cout << "Entrez l'index du livre : ";
             std::cin >> index;
-            if (index > 0 && index <= total) 
+            if (index > 0 && index <= total) {
+                system("clear || cls");
                 afficherFicheLivre(b.listeDeLivres[index-1]);
+            }
+        }
+        else {
+            system("clear || cls");
+            std::cout << "Choix invalide. Veuillez reessayer.\n";
         }
     }
 }

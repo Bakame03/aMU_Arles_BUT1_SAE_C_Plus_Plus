@@ -20,7 +20,7 @@ void exporterEnHTML(const Bibliotheque& b, std::string cheminFichier) {
     fichier << "<p>" << b.description << "</p>\n";
 
     fichier << "<table>\n";
-    fichier << "<tr><th>ISBN-13</th><th>Titre</th><th>Auteurs</th><th>Genre</th></tr>\n";
+    fichier << "<tr><th>ISBN-13</th><th>Titre</th><th>Auteurs</th><th>Langue</th><th>Date</th><th>Genre</th><th>Résumé</th></tr>\n";
 
     for (const Livre& l : b.listeDeLivres) {
         fichier << "<tr>\n";
@@ -30,6 +30,15 @@ void exporterEnHTML(const Bibliotheque& b, std::string cheminFichier) {
         fichier << "  <td>";
         for (size_t i = 0; i < l.auteurs.size(); i++) {
             fichier << l.auteurs[i] << (i == l.auteurs.size() - 1 ? "" : ", ");
+        }
+        fichier << "</td>\n";
+
+        fichier << "  <td>" << l.langue << "</td>\n";
+        fichier << "  <td>" << l.dateParution.jour << "/" << l.dateParution.mois << "/" << l.dateParution.annee << "</td>\n";
+
+        fichier << "  <td>";
+        for (size_t i = 0; i < l.description.size(); ++i) {
+            fichier << l.description[i] << (i + 1 == l.description.size() ? "" : "<br>");
         }
         fichier << "</td>\n";
 
