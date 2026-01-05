@@ -1,0 +1,65 @@
+========================================================================
+             CAHIER DE JEUX DE TESTS - GESTION BIBLIO
+========================================================================
+
+Ce document présente les scénarios de test pour valider les fonctionnalités 
+clés du programme.
+
+TEST 1 : INITIALISATION ET SÉCURITÉ 
+-----------------------------------------
+1. Action : Lancer le programme sans fichier 'data/db.txt'.
+2. Test de sécurité : Essayer de valider un titre vide.
+   -> Résultat attendu : Le programme refuse et redemande la saisie.
+3. Action : Saisir un titre et une description multi-lignes.
+   -> Résultat attendu : Le menu principal s'affiche avec le bon titre.
+
+TEST 2 : AJOUT MANUEL ET VALIDATION DE DATE 
+---------------------------------------------------
+1. Action : Choisir Option 2 -> 1 (Ajout manuel).
+2. Données à saisir : 
+   - ISBN : 123
+   - Titre : Test Date
+   - Date : 31 02 2024 (Date inexistante)
+   -> Résultat attendu : Message d'erreur "La date n'existe pas".
+3. Action : Saisir la date valide 29 02 2024 (Année bissextile).
+   -> Résultat attendu : La date est acceptée.
+4. Test Résumé : Saisir un résumé sur 3 lignes.
+   -> Résultat attendu : Le livre est ajouté avec succès.
+
+TEST 3 : IMPORTATION CSV ET GESTION DES GUILLEMETS 
+----------------------------------------------------------
+1. Action : Choisir Option 2 -> 2. Saisir 'import/livres.csv'.
+2. Observation : Le fichier contient des résumés avec des retours à la ligne 
+   entre guillemets.
+   -> Résultat attendu : Le programme doit importer les livres sans erreur 
+      grâce à la gestion du nombre de guillemets.
+
+TEST 4 : NAVIGATION ET PAGINATION 
+---------------------------------------
+1. Action : Configurer les paramètres (Option 5) sur 2 livres par page.
+2. Action : Consulter les références (Option 1).
+   -> Résultat attendu : Utiliser 'N' pour suivant et 'P' pour précédent. 
+      Vérifier que les index sont corrects et que l'écran se nettoie bien.
+
+TEST 5 : RECHERCHE PAR MOT-CLÉ 
+------------------------------------
+1. Action : Option 3 -> 2 (Recherche par titre). Saisir "La".
+   -> Résultat attendu : Tous les titres contenant "La" (La Tresse, 
+      L'Anomalie, etc.) doivent être listés.
+
+TEST 6 : PERSISTANCE DES DONNÉES 
+--------------------------------------
+1. Action : Quitter le programme (Option 6) et accepter la sauvegarde.
+2. Action : Vérifier le fichier 'data/db.txt'.
+   -> Résultat attendu : Les descriptions multi-lignes doivent être 
+      stockées sur une seule ligne séparée par des '|'.
+3. Action : Relancer le programme.
+   -> Résultat attendu : Toutes les données sont rechargées automatiquement.
+
+TEST 7 : EXPORT HTML 
+--------------------------
+1. Action : Choisir l'option 4.
+2. Action : Ouvrir 'export/index.html' avec un navigateur.
+   -> Résultat attendu : Un tableau propre s'affiche. Les résumés multi-lignes 
+      doivent respecter les sauts de ligne grâce aux balises <br>.
+========================================================================
